@@ -8,3 +8,5 @@ Steps:
 4) A status of 202 is returned in the console meaning the request was accepted and is being processed
 
 Start Task working, now need to view progress
+
+Right now scans are being queued and then start running, but are getting stuck at 2% completion.
