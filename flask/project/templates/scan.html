@@ -1,0 +1,68 @@
+<!-- templates/scan.html -->
+
+{% extends "base.html" %}
+
+{% block headscripts %}
+<script src="/static/script.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="box">
+  <button class="button" onclick="get_version()">Log version</button>
+  <button class="button" onclick="get_scanners()">Log scanners</button>
+  <button class="button" onclick="get_configs()">Log configs</button>
+</div>
+<div class="box">
+  <div class="columns">
+    <div class="column is-2">Scan 1</div>
+    <div class="column"><progress class="progress" value="15" max="100">15%</progress></div>
+  </div>
+</div>
+<div class="box">
+  <div class="columns">
+    <div class="column is-2">Scan 2</div>
+    <div class="column"><progress class="progress" value="30" max="100">30%</progress></div>
+  </div>
+</div>
+
+<form id="createTargetForm">
+    <label for="nameInput">Name:</label>
+    <input type="text" id="nameInput" name="name"><br><br>
+    
+    <label for="hostInput">Hosts:</label>
+    <input type="text" id="hostInput" name="hosts"><br><br>
+    
+    <!-- You can add input fields for port_list_id or port_range if required -->
+    
+    <button type="button" onclick="createTarget()">Create Target</button>
+</form>
+
+<h1>Create Task</h1>
+    <label for="taskName">Task Name:</label>
+    <input type="text" id="taskName" name="taskName"><br><br>
+
+    <label for="configId">Select Configuration:</label>
+    <select id="configId">
+      <option value="d21f6c81-2b88-4ac1-b7b4-a2a9f2ad4663">Full and Fast</option>
+        <!-- Populate this dropdown menu dynamically with config IDs -->
+        <!-- Example: <option value="config_id_1">Config 1</option> -->
+    </select><br><br>
+
+    <label for="scannerId">Select Scanner:</label>
+    <select id="scannerId">
+      <option value="08b69003-5fc2-4037-a479-93b440211c73">OpenVAS Default</option>
+        <!-- Populate this dropdown menu dynamically with scanner IDs -->
+        <!-- Example: <option value="scanner_id_1">Scanner 1</option> -->
+    </select><br><br>
+    <label for="targetId">Target ID:</label>
+    <input type="text" id="targetId" name="targetId"><br><br>
+    
+    <button type="button" onclick="createTask()">Create Task</button>
+
+    <h1>Start Task</h1>
+    <label for="taskId">Task ID:</label>
+    <input type="text" id="taskId" name="taskId"><br><br>
+    <button type="button" onclick="startTask()">Start Task</button>
+
+
+{% endblock %}
