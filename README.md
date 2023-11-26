@@ -14,4 +14,6 @@ Problems:
 Full and Fast scan crashes docker after a little while everytime I run it.
 Base scan takes about 10 hours to complete
 
+To look up an old scan you must first check the progress, could consolidate check progress and if progress === 100 then get report.
+
 RIGHT NOW USE HOST DISCOVERY SCAN FOR TESTING, THE SCAN FINISHES IN ABOUT A MINUTE!
