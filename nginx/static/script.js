@@ -101,3 +101,100 @@ async function startTask() {
         console.error('Error:', error);
     }
 }
+
+async function checkTaskProgress() {
+    const taskId = document.getElementById('taskId').value;
+
+    try {
+        console.log('Task ID:', taskId);
+        const response = await fetch(`/api/task_progress/${taskId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        console.log('Response Status:', response.status);
+        console.log('Response Headers:', response.headers);
+        
+        const data = await response.json();
+        const progressOutput = document.getElementById('progressOutput');
+
+        if (response.ok) {
+            console.log('Received Data:', data);
+	    console.log('Progress:', progressOutput);
+            progressOutput.innerHTML = `
+                <p>Status: ${data.status}</p>
+                <p>Progress: ${data.progress}</p>
+            `;
+        } else {
+            progressOutput.innerHTML = `<p>Error: Unable to fetch task progress</p>`;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+async function fetchReportProgress() {
+    const reportId = document.getElementById('reportId').value;
+
+    try {
+        const response = await fetch(`/api/report_progress/${reportId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return data.progress;
+        } else {
+            console.error('Failed to fetch report progress');
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching report progress:', error);
+        return null;
+    }
+}
+
+async function getReportProgress() {
+    const reportId = document.getElementById('reportId').value;
+
+    if (!reportId) {
+        console.error('Please enter a Report ID');
+        return;
+    }
+
+    const progress = await fetchReportProgress(reportId);
+
+    if (progress !== null) {
+        console.log(`Report Progress for ID ${reportId}: ${progress}`);
+    } else {
+        console.error('Failed to fetch report progress');
+    }
+}
+
+async function getReport() {
+  const reportId = document.getElementById('reportId').value;
+
+  try {
+    const response = await fetch(`/api/report/${reportId}.pdf`, {
+      method: 'GET',
+    });
+
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      
+      // Open the PDF in a new tab
+      window.open(url, '_blank');
+    } else {
+      console.error('Failed to retrieve the report');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
